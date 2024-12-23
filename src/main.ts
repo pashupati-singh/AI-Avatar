@@ -45,7 +45,7 @@ async function getChatGPTResponse(userMessage: string): Promise<string> {
   }
 
   console.log("Sending message to backend:", userMessage); // Debugging breakpoint
-  const response = await fetch('http://localhost:3000/api/chat', {
+  const response = await fetch('https://ai-backend-tbbk.onrender.com/api/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: userMessage }),
