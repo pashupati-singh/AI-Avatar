@@ -82,12 +82,16 @@ async function initializeAvatarSession(): Promise<void> {
   const token = await fetchAccessToken();
   avatar = new StreamingAvatar({ token });
 
-  sessionInfo = await avatar.createStartAvatar({
-    quality: AvatarQuality.High,
-    avatarName: "default",
-  });
+  try {
+    sessionInfo = await avatar.createStartAvatar({
+      quality: AvatarQuality.High,
+      avatarName: "default",
+    });
+  } catch (error) {
+    alert("limit exceed, refresh the page")
+  }
 
-  console.log("Session data:", sessionInfo); // Debugging breakpoint
+  console.log("Session data:", sessionInfo); 
 
   endSessionButton.disabled = false;
   startSessionButton.disabled = true;
@@ -107,6 +111,7 @@ function handleStreamReady(event: any): void {
     };
     console.log("HeyGen stream is ready and playing."); // Debugging breakpoint
   } else {
+    alert("streaming not availble, limit exceed refresh the page")
     console.error("Stream is not available.");
   }
 }
@@ -178,6 +183,7 @@ async function handleSpeak(): Promise<void> {
 
     userInput.value = "";
   } catch (error) {
+    alert("limit exceed, pls refresh the page")
     console.error("Error in conversation flow:", error);
     showErrorStatus(true);
   } finally {
